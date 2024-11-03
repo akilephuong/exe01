@@ -1,0 +1,26 @@
+name: Kiểm thử plugin Visual Studio
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        vs-version: [2017, 2019, 2022]
+
+    steps:
+    - name: Lấy mã nguồn
+      uses: actions/checkout@v2
+
+    - name: Thiết lập Visual Studio ${{ matrix.vs-version }}
+      uses: microsoft/setup-msbuild@v1.0.2
+      with:
+        vs-version: ${{ matrix.vs-version }}
+
+    - name: Xây dựng và kiểm thử plugin
+      run: |
+        msbuild /t:restore
+        msbuild /p:Configuration=Release
+        vstest.console.exe MyPluginTests.dll
