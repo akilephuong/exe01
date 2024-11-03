@@ -1,4 +1,4 @@
-name: Test VSIX Compatibility
+name: TestVSIXCompatibility
 
 on: [push, pull_request]
 
