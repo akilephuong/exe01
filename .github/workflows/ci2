@@ -1,0 +1,27 @@
+name: Test VSIX Compatibility
+
+on: [push, pull_request]
+
+jobs:
+  vsix-test:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        visual-studio-version: [2017, 2019, 2022]  # Các phiên bản Visual Studio cần kiểm tra
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Visual Studio ${{ matrix.visual-studio-version }}
+      uses: microsoft/setup-msbuild@v1
+      with:
+        vs-version: ${{ matrix.visual-studio-version }}
+      
+    - name: Install Plugin with VSIXInstaller
+      run: |
+        # Đảm bảo đường dẫn chính xác đến file .vsix của bạn
+        "C:\Program Files (x86)\Microsoft Visual Studio\${{ matrix.visual-studio-version }}\Community\Common7\IDE\VSIXInstaller.exe" /quiet /logFile="vsix-install-log.txt" path\to\your-plugin.vsix
+      
+    - name: Check installation log
+      run: |
+        type vsix-install-log.txt
