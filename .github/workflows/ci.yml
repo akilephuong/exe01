@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        vs-version: [2017, 2019, 2022]
+        vs-version: [2015, 2017, 2019, 2022]
 
     steps:
     - name: Lấy mã nguồn
