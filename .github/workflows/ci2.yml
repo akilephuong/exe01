@@ -7,7 +7,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        visual-studio-version: [2017, 2019, 2022]  # Các phiên bản Visual Studio cần kiểm tra
+        visual-studio-version: [2015, 2017, 2019, 2022]  # Các phiên bản Visual Studio cần kiểm tra
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
